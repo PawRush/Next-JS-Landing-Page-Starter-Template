@@ -35,3 +35,8 @@ local
 
 # vercel
 .vercel
+
+# amplify
+amplify_outputs.json
+.amplify/
+.env.amplify
