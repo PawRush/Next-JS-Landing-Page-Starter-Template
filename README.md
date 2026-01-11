@@ -219,6 +219,18 @@ Clone this repository on own GitHub account and deploy to Netlify:
 
 [![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ixartz/Next-JS-Landing-Page-Starter-Template)
 
+### Deploy to AWS
+
+Deploy to AWS S3 + CloudFront using the included CDK infrastructure:
+
+```bash
+./scripts/deploy.sh
+```
+
+This deploys your site to a CloudFront distribution with a 'preview' URL. See [DEPLOYMENT_PLAN.md](./DEPLOYMENT_PLAN.md) for full deployment details.
+
+To connect deployments to GitHub changes, set up an AWS CodePipeline with the `setup-codepipeline` script.
+
 ### VSCode information (optional)
 
 If you are VSCode users, you can have a better integration with VSCode by installing the suggested extension in `.vscode/extension.json`. The starter code comes up with Settings for a seamless integration with VSCode. The Debug configuration is also provided for frontend and backend debugging experience.
