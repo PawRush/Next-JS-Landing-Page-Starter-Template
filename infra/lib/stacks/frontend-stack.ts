@@ -1,8 +1,9 @@
-import * as cdk from "aws-cdk-lib";
-import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
-import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
-import { CloudFrontToS3 } from "@aws-solutions-constructs/aws-cloudfront-s3";
-import { Construct } from "constructs";
+/* eslint-disable no-new, global-require */
+import { CloudFrontToS3 } from '@aws-solutions-constructs/aws-cloudfront-s3';
+import * as cdk from 'aws-cdk-lib';
+import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
+import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
+import type { Construct } from 'constructs';
 
 export interface FrontendStackProps extends cdk.StackProps {
   environment: string;
@@ -11,18 +12,24 @@ export interface FrontendStackProps extends cdk.StackProps {
 
 export class FrontendStack extends cdk.Stack {
   public readonly distributionDomainName: string;
+
   public readonly bucketName: string;
 
   constructor(scope: Construct, id: string, props: FrontendStackProps) {
     super(scope, id, props);
 
     const { environment, buildOutputPath } = props;
-    const isProd = environment === "prod";
-    const removalPolicy = isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY;
+    const isProd = environment === 'prod';
+    const removalPolicy = isProd
+      ? cdk.RemovalPolicy.RETAIN
+      : cdk.RemovalPolicy.DESTROY;
 
     // URL rewrite function for /path/index.html pattern (Next.js with trailingSlash: true)
-    const urlRewriteFunction = new cloudfront.Function(this, "UrlRewriteFunction", {
-      code: cloudfront.FunctionCode.fromInline(`
+    const urlRewriteFunction = new cloudfront.Function(
+      this,
+      'UrlRewriteFunction',
+      {
+        code: cloudfront.FunctionCode.fromInline(`
         function handler(event) {
           const request = event.request;
           let uri = request.uri;
@@ -33,10 +40,11 @@ export class FrontendStack extends cdk.Stack {
           return request;
         }
       `),
-      comment: "Rewrites /path to /path/index.html for Next.js static export",
-    });
+        comment: 'Rewrites /path to /path/index.html for Next.js static export',
+      },
+    );
 
-    const cloudfrontToS3 = new CloudFrontToS3(this, "CFToS3", {
+    const cloudfrontToS3 = new CloudFrontToS3(this, 'CFToS3', {
       bucketProps: {
         removalPolicy,
         autoDeleteObjects: !isProd,
@@ -47,7 +55,7 @@ export class FrontendStack extends cdk.Stack {
         autoDeleteObjects: !isProd,
         lifecycleRules: [
           {
-            id: "DeleteOldLogs",
+            id: 'DeleteOldLogs',
             enabled: true,
             expiration: isProd ? cdk.Duration.days(3650) : cdk.Duration.days(7),
           },
@@ -58,7 +66,7 @@ export class FrontendStack extends cdk.Stack {
         autoDeleteObjects: !isProd,
         lifecycleRules: [
           {
-            id: "DeleteOldLogs",
+            id: 'DeleteOldLogs',
             enabled: true,
             expiration: isProd ? cdk.Duration.days(3650) : cdk.Duration.days(7),
           },
@@ -68,7 +76,10 @@ export class FrontendStack extends cdk.Stack {
       responseHeadersPolicyProps: {
         securityHeadersBehavior: {
           contentTypeOptions: { override: true },
-          frameOptions: { frameOption: cloudfront.HeadersFrameOption.DENY, override: true },
+          frameOptions: {
+            frameOption: cloudfront.HeadersFrameOption.DENY,
+            override: true,
+          },
           strictTransportSecurity: {
             accessControlMaxAge: cdk.Duration.seconds(47304000),
             includeSubdomains: true,
@@ -77,13 +88,17 @@ export class FrontendStack extends cdk.Stack {
         },
         customHeadersBehavior: {
           customHeaders: [
-            { header: "Cache-Control", value: "no-store, no-cache", override: true },
+            {
+              header: 'Cache-Control',
+              value: 'no-store, no-cache',
+              override: true,
+            },
           ],
         },
       },
       cloudFrontDistributionProps: {
         comment: `${id} - ${environment}`,
-        defaultRootObject: "index.html",
+        defaultRootObject: 'index.html',
         defaultBehavior: {
           functionAssociations: [
             {
@@ -103,15 +118,15 @@ export class FrontendStack extends cdk.Stack {
     const distribution = cloudfrontToS3.cloudFrontWebDistribution;
 
     // Only deploy assets if build output exists or explicitly enabled
-    const withAssets = this.node.tryGetContext("withAssets") !== "false";
+    const withAssets = this.node.tryGetContext('withAssets') !== 'false';
     if (withAssets) {
-      const fs = require("fs");
+      const fs = require('fs');
       if (fs.existsSync(buildOutputPath)) {
-        new s3deploy.BucketDeployment(this, "DeployWebsite", {
+        new s3deploy.BucketDeployment(this, 'DeployWebsite', {
           sources: [s3deploy.Source.asset(buildOutputPath)],
           destinationBucket: websiteBucket,
           distribution,
-          distributionPaths: ["/*"],
+          distributionPaths: ['/*'],
           prune: true,
           memoryLimit: 512,
         });
@@ -122,47 +137,47 @@ export class FrontendStack extends cdk.Stack {
     this.bucketName = websiteBucket.bucketName;
 
     // Outputs
-    new cdk.CfnOutput(this, "WebsiteURL", {
+    new cdk.CfnOutput(this, 'WebsiteURL', {
       value: `https://${distribution.distributionDomainName}`,
-      description: "CloudFront distribution URL",
+      description: 'CloudFront distribution URL',
       exportName: `${id}-WebsiteURL`,
     });
 
-    new cdk.CfnOutput(this, "BucketName", {
+    new cdk.CfnOutput(this, 'BucketName', {
       value: websiteBucket.bucketName,
-      description: "S3 bucket name",
+      description: 'S3 bucket name',
       exportName: `${id}-BucketName`,
     });
 
-    new cdk.CfnOutput(this, "DistributionId", {
+    new cdk.CfnOutput(this, 'DistributionId', {
       value: distribution.distributionId,
-      description: "CloudFront distribution ID",
+      description: 'CloudFront distribution ID',
       exportName: `${id}-DistributionId`,
     });
 
-    new cdk.CfnOutput(this, "DistributionDomainName", {
+    new cdk.CfnOutput(this, 'DistributionDomainName', {
       value: distribution.distributionDomainName,
-      description: "CloudFront domain name",
+      description: 'CloudFront domain name',
       exportName: `${id}-DistributionDomain`,
     });
 
     if (cloudfrontToS3.s3LoggingBucket) {
-      new cdk.CfnOutput(this, "S3LogBucketName", {
+      new cdk.CfnOutput(this, 'S3LogBucketName', {
         value: cloudfrontToS3.s3LoggingBucket.bucketName,
-        description: "Bucket for S3 access logs",
+        description: 'Bucket for S3 access logs',
         exportName: `${id}-S3LogBucket`,
       });
     }
 
     if (cloudfrontToS3.cloudFrontLoggingBucket) {
-      new cdk.CfnOutput(this, "CloudFrontLogBucketName", {
+      new cdk.CfnOutput(this, 'CloudFrontLogBucketName', {
         value: cloudfrontToS3.cloudFrontLoggingBucket.bucketName,
-        description: "Bucket for CloudFront access logs",
+        description: 'Bucket for CloudFront access logs',
         exportName: `${id}-CloudFrontLogBucket`,
       });
     }
 
-    cdk.Tags.of(this).add("Stack", "Frontend");
-    cdk.Tags.of(this).add("aws-mcp:deploy:sop", "deploy-frontend-app");
+    cdk.Tags.of(this).add('Stack', 'Frontend');
+    cdk.Tags.of(this).add('aws-mcp:deploy:sop', 'deploy-frontend-app');
   }
 }
