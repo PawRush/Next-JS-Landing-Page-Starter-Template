@@ -11,10 +11,7 @@
     "lint": "next lint",
     "format": "next lint --fix && prettier '**/*.{json,yaml}' --write --ignore-path .gitignore",
     "check-types": "tsc --noEmit --pretty",
-    "test": "playwright test",
-    "test:headed": "playwright test --headed",
-    "test:ui": "playwright test --ui",
-    "test:report": "playwright show-report",
+    "test:e2e": "playwright test",
     "prepare": "husky install"
   },
   "dependencies": {

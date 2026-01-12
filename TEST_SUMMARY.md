@@ -123,21 +123,15 @@ This document provides an overview of the Playwright E2E test suite created for 
 - Dynamic content loading
 - Complex user workflows
 
-## Running the Tests
+## Running E2E Tests
 
 ### Quick Start
 ```bash
-# Run all tests
-npm test
+# Run e2e tests
+npm test:e2e
 
 # Run specific test file
 npx playwright test landing-page-sections
-
-# Run in UI mode (interactive)
-npm run test:ui
-
-# View test report
-npm run test:report
 ```
 
 ### Test Execution
