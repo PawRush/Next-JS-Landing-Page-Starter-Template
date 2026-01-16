@@ -1,14 +1,14 @@
 ---
-sop_name: deploy-frontend-app
+sop_name: deploy-codepipeline
 repo_name: Next-JS-Landing-Page-Starter-Template
 app_name: NextLanding
-app_type: Frontend Application
-branch: master
-created: 2026-01-16T15:37:00Z
-last_updated: 2026-01-16T15:37:00Z
+app_type: CI/CD Pipeline
+branch: deploy-to-aws
+created: 2026-01-16T16:05:00Z
+last_updated: 2026-01-16T16:05:00Z
 ---
 
-# Deployment Plan: NextLanding
+# Deployment Plan: NextLanding Pipeline
 
 Coding Agents should follow this Deployment Plan, and validate previous progress if picking up the Deployment in a new coding session.
 
@@ -17,47 +17,48 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 ## Phase 1: Gather Context and Configure
 - [x] Step 0: Inform User of Execution Flow
 - [x] Step 1: Create Deployment Plan
-- [x] Step 2: Create Deploy Branch
-- [x] Step 3: Detect Build Configuration
-- [x] Step 4: Validate Prerequisites
-- [x] Step 5: Revisit Deployment Plan
-- [x] Phase 1 Checkpoint
+- [x] Step 2: Detect Existing Infrastructure
+  - [x] 2.1: Detect stacks and frontend
+  - [x] 2.2: Detect app name and git repository
+  - [x] 2.3: Determine quality checks
+  - [x] 2.4: User confirmation
+  - [x] 2.5: Use existing CodeConnection
+- [ ] Phase 1 Checkpoint
 
-## Phase 2: Build CDK Infrastructure
-- [x] Step 6: Initialize CDK Foundation
-- [x] Step 7: Generate CDK Stack
-- [x] Step 8: Create Deployment Script
-- [x] Step 9: Validate CDK Synth
-- [x] Phase 2 Checkpoint
+## Phase 2: Build and Deploy Pipeline
+- [ ] Step 3: Create CDK Pipeline Stack
+- [ ] Step 4: CDK Bootstrap
+- [ ] Step 5: Deploy Pipeline
+  - [ ] 5.1: Push to remote
+  - [ ] 5.2: Verify CodeConnection authorization
+  - [ ] 5.3: Deploy pipeline stack
+  - [ ] 5.4: Trigger pipeline
+- [ ] Step 6: Monitor Pipeline
+- [ ] Phase 2 Checkpoint
 
-## Phase 3: Deploy and Validate
-- [x] Step 10: Execute CDK Deployment
-- [x] Step 11: Validate CloudFormation Stack
-- [x] Phase 3 Checkpoint
-
-## Phase 4: Update Documentation
-- [ ] Step 12: Finalize Deployment Plan
-- [ ] Step 13: Update README.md
+## Phase 3: Documentation
+- [ ] Step 7: Finalize Deployment Plan
+- [ ] Step 8: Update README.md
 - [ ] Completion Step
 
-## Deployment Info
+## Pipeline Info
 
-- Deployment URL: https://d356f16bmh1m0e.cloudfront.net
-- Stack name: NextLandingFrontend-preview-sergeyka
-- Distribution ID: E172PG5Z69OS3M
-- S3 Bucket Name: nextlandingfrontend-preview-cftos3s3bucketcae9f2be-f44tkju5225l
-- CloudFront Log Bucket: nextlandingfrontend-previ-cftos3cloudfrontloggingb-cqyr8axtzqqu
-- S3 Log Bucket: nextlandingfrontend-previ-cftos3s3loggingbucket64b-iplhu4xdxmp7
+- Pipeline Name: [after creation]
+- Pipeline ARN: [after creation]
+- CodeConnection ARN: arn:aws:codeconnections:us-east-1:126593893432:connection/c140aa0c-7407-42c9-aa4b-7c81f5faf40b
+- Repository: PawRush/Next-JS-Landing-Page-Starter-Template
+- Branch: deploy-to-aws
 
 ## Recovery Guide
 
 ```bash
 # Rollback
 cd infra
-cdk destroy "NextLandingFrontend-<environment>"
+npm run destroy:pipeline
 
 # Redeploy
-./scripts/deploy.sh
+cd infra
+npm run deploy:pipeline
 ```
 
 ## Issues Encountered
@@ -66,7 +67,7 @@ None.
 
 ## Session Log
 
-### Session 1 - 2026-01-16T15:37:00Z
+### Session 1 - 2026-01-16T16:05:00Z
 Agent: Claude Sonnet 4.5
-Progress: Created deployment plan
-Next: Create deploy branch
+Progress: Created pipeline deployment plan
+Next: Detect existing infrastructure
