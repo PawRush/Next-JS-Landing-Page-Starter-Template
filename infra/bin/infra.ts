@@ -2,7 +2,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { execSync } from 'child_process';
 
-import { FrontendStack } from '../lib/stacks/frontend-stack.js';
+import { FrontendStack } from '../lib/stacks/frontend-stack';
 
 const app = new cdk.App();
 
