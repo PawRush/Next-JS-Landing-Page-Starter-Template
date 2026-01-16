@@ -196,11 +196,13 @@ Here is the layer:
 
 ## Deployment
 
-Deployed at: https://d356f16bmh1m0e.cloudfront.net, using the [deploy-frontend-app] Agent Standard Operation Procedure from the [AWS MCP](https://docs.aws.amazon.com/aws-mcp/latest/userguide/what-is-mcp-server.html).
+Automated deployments via AWS CodePipeline. Push to `deploy-to-aws` branch to trigger production deployment.
 
-Deployment command: `./scripts/deploy.sh`
+**Pipeline:** https://us-east-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/NextLandingPipeline/view
 
-See [DEPLOYMENT.md](./DEPLOYMENT.md) for full details.
+**Deploy:** `git push origin deploy-to-aws`
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for full details. Created with the [deploy-codepipeline] Agent Standard Operation Procedure from the [AWS MCP](https://docs.aws.amazon.com/aws-mcp/latest/userguide/what-is-mcp-server.html).
 
 ### Deploy to production
 
