@@ -6,7 +6,12 @@ This file contains instructions for AI coding agents working on this project.
 
 See `./DEPLOYMENT.md` for deployment status, logs, troubleshooting, and next steps.
 
-The application is deployed to AWS using CDK infrastructure. Use `./scripts/deploy.sh` to deploy updates.
+The application is deployed to AWS using CDK infrastructure with automated CI/CD via CodePipeline.
+
+**Automated Deployment:** Push to `deploy-to-aws` branch triggers pipeline
+**Manual Deployment:** Use `./scripts/deploy.sh` for preview environments
+
+Pipeline URL: https://us-east-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/NextLandingPipeline/view
 
 ## Project Overview
 
