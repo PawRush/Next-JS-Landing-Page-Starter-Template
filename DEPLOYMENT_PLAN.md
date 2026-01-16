@@ -31,9 +31,9 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 - [x] Phase 2 Checkpoint
 
 ## Phase 3: Deploy and Validate
-- [ ] Step 10: Execute CDK Deployment
-- [ ] Step 11: Validate CloudFormation Stack
-- [ ] Phase 3 Checkpoint
+- [x] Step 10: Execute CDK Deployment
+- [x] Step 11: Validate CloudFormation Stack
+- [x] Phase 3 Checkpoint
 
 ## Phase 4: Update Documentation
 - [ ] Step 12: Finalize Deployment Plan
@@ -42,12 +42,12 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 
 ## Deployment Info
 
-- Deployment URL: [after completion]
-- Stack name: [after creation]
-- Distribution ID: [after creation]
-- S3 Bucket Name: [after creation]
-- CloudFront Log Bucket: [after creation]
-- S3 Log Bucket: [after creation]
+- Deployment URL: https://d356f16bmh1m0e.cloudfront.net
+- Stack name: NextLandingFrontend-preview-sergeyka
+- Distribution ID: E172PG5Z69OS3M
+- S3 Bucket Name: nextlandingfrontend-preview-cftos3s3bucketcae9f2be-f44tkju5225l
+- CloudFront Log Bucket: nextlandingfrontend-previ-cftos3cloudfrontloggingb-cqyr8axtzqqu
+- S3 Log Bucket: nextlandingfrontend-previ-cftos3s3loggingbucket64b-iplhu4xdxmp7
 
 ## Recovery Guide
 
