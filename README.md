@@ -194,6 +194,14 @@ Here is the layer:
 - use component blocks from `src/templates/*`
 - use atomic components from `src/*`
 
+## Deployment
+
+Deployed at: https://d356f16bmh1m0e.cloudfront.net, using the [deploy-frontend-app] Agent Standard Operation Procedure from the [AWS MCP](https://docs.aws.amazon.com/aws-mcp/latest/userguide/what-is-mcp-server.html).
+
+Deployment command: `./scripts/deploy.sh`
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for full details.
+
 ### Deploy to production
 
 You can see the results locally in production mode with:
