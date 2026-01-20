@@ -5,7 +5,7 @@ import { defineConfig, devices } from '@playwright/test';
  * Playwright configuration for Next.js Landing Page tests
  */
 export default defineConfig({
-  testDir: './tests/e2e',
+  testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
