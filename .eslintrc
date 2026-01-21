@@ -15,9 +15,46 @@
     ]
   },
   "overrides": [
+    // Configuration for CDK infrastructure files
+    {
+      "files": ["infra/**/*.ts"],
+      "plugins": [
+        "@typescript-eslint",
+        "unused-imports",
+        "simple-import-sort"
+      ],
+      "extends": [
+        "airbnb-typescript",
+        "plugin:prettier/recommended"
+      ],
+      "parserOptions": {
+        "project": "./infra/tsconfig.json"
+      },
+      "rules": {
+        "no-new": "off",
+        "prettier/prettier": [
+          "error",
+          {
+            "singleQuote": true,
+            "endOfLine": "auto"
+          }
+        ],
+        "@typescript-eslint/comma-dangle": "off",
+        "import/prefer-default-export": "off",
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
+        "@typescript-eslint/no-unused-vars": "off",
+        "unused-imports/no-unused-imports": "error",
+        "unused-imports/no-unused-vars": [
+          "error",
+          { "argsIgnorePattern": "^_" }
+        ]
+      }
+    },
     // Configuration for TypeScript files
     {
       "files": ["**/*.ts", "**/*.tsx"],
+      "excludedFiles": ["infra/**/*.ts"],
       "plugins": [
         "@typescript-eslint",
         "unused-imports",

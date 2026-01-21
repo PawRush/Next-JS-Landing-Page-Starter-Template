@@ -3,9 +3,16 @@ sop_name: deploy-frontend-app
 repo_name: Next-JS-Landing-Page-Starter-Template
 app_name: NextJSLand
 app_type: Frontend Application (Next.js Static Landing Page)
-branch: master
+branch: deploy-to-aws
+framework: Next.js 14.1.0
+package_manager: npm
+build_command: npm run build
+output_directory: out/
+base_path: /
+routing_type: static-multi-page-trailing-slash
+lint_command: npm run lint
 created: 2026-01-21T20:24:00Z
-last_updated: 2026-01-21T20:24:00Z
+last_updated: 2026-01-21T20:27:00Z
 ---
 
 # Deployment Plan: NextJSLand
@@ -15,10 +22,10 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 **IMPORTANT**: Update this plan after EACH step completes. Mark the step `[x]` and update `last_updated` timestamp.
 
 ## Phase 1: Gather Context and Configure
-- [...] Step 1: Create Deployment Plan
-- [ ] Step 2: Create Deploy Branch
-- [ ] Step 3: Detect Build Configuration
-- [ ] Step 4: Validate Prerequisites
+- [x] Step 1: Create Deployment Plan
+- [x] Step 2: Create Deploy Branch
+- [x] Step 3: Detect Build Configuration
+- [x] Step 4: Validate Prerequisites
 - [ ] Step 5: Revisit Deployment Plan
 - [ ] Phase 1 Checkpoint
 
