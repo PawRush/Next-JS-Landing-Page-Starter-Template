@@ -213,6 +213,14 @@ npm run build-prod
 
 Now, your theme is ready to be deployed. All generated files are located at `out` folder, which you can deploy with any hosting service.
 
+## Deployment
+
+Deployed at: https://d9adrq419rcwu.cloudfront.net, using the [deploy-frontend-app] Agent Standard Operation Procedure from the [AWS MCP](https://docs.aws.amazon.com/aws-mcp/latest/userguide/what-is-mcp-server.html).
+
+Deployment command: `./scripts/deploy.sh`
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for full details.
+
 ### Deploy to Netlify
 
 Clone this repository on own GitHub account and deploy to Netlify:
