@@ -1,12 +1,19 @@
 # Deployment Summary
 
-Your app is deployed to AWS! Preview URL: https://d9adrq419rcwu.cloudfront.net
+Your app is deployed to AWS with automated CI/CD!
 
-**Next Step: Automate Deployments**
+**Production URL**: Will be available after first pipeline deployment completes
+**Manual Deployment URL**: https://d9adrq419rcwu.cloudfront.net (preview environment)
 
-You're currently using manual deployment. To automate deployments from GitHub, ask your coding agent to set up AWS CodePipeline using an agent SOP for pipeline creation. Try: "create a pipeline using AWS SOPs"
+## Pipeline
 
-Services used: CloudFront, S3, CloudFormation, IAM
+**Pipeline Name**: NextJSLandPipeline
+**Pipeline Console**: https://us-east-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/NextJSLandPipeline/view
+**Trigger**: Automatic on push to `deploy-to-aws` branch
+
+To deploy: `git push origin deploy-to-aws`
+
+Services used: CodePipeline, CodeBuild, CodeConnections, CloudFront, S3, CloudFormation, IAM
 
 Questions? Ask your Coding Agent:
 - What resources were deployed to AWS?
@@ -15,16 +22,19 @@ Questions? Ask your Coding Agent:
 ## Quick Commands
 
 ```bash
-# View deployment status
-aws cloudformation describe-stacks --stack-name "NextJSLandFrontend-preview-sergeyka" --query 'Stacks[0].StackStatus' --output text
+# View pipeline status
+aws codepipeline get-pipeline-state --name "NextJSLandPipeline" --query 'stageStates[*].[stageName,latestExecution.status]' --output table
 
-# Invalidate CloudFront cache
-aws cloudfront create-invalidation --distribution-id "E3KJCC0BV5LNFH" --paths "/*"
+# View build logs
+aws logs tail "/aws/codebuild/NextJSLandPipelineStack-Synth" --follow
 
-# View CloudFront access logs (last hour)
-aws s3 ls "s3://nextjslandfrontend-previe-cftos3cloudfrontloggingb-oesvcpjvotgu/" --recursive | tail -20
+# Trigger pipeline manually
+aws codepipeline start-pipeline-execution --name "NextJSLandPipeline"
 
-# Redeploy
+# View production deployment status
+aws cloudformation describe-stacks --stack-name "NextJSLandFrontend-prod" --query 'Stacks[0].StackStatus' --output text
+
+# Manual deployment (preview environment)
 ./scripts/deploy.sh
 ```
 
