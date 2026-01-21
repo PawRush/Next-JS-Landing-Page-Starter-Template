@@ -30,16 +30,16 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 - [ ] Phase 1 Checkpoint
 
 ## Phase 2: Build CDK Infrastructure
-- [ ] Step 6: Initialize CDK Foundation
-- [ ] Step 7: Generate CDK Stack
-- [ ] Step 8: Create Deployment Script
-- [ ] Step 9: Validate CDK Synth
-- [ ] Phase 2 Checkpoint
+- [x] Step 6: Initialize CDK Foundation
+- [x] Step 7: Generate CDK Stack
+- [x] Step 8: Create Deployment Script
+- [x] Step 9: Validate CDK Synth
+- [x] Phase 2 Checkpoint
 
 ## Phase 3: Deploy and Validate
-- [ ] Step 10: Execute CDK Deployment
-- [ ] Step 11: Validate CloudFormation Stack
-- [ ] Phase 3 Checkpoint
+- [x] Step 10: Execute CDK Deployment
+- [x] Step 11: Validate CloudFormation Stack
+- [x] Phase 3 Checkpoint
 
 ## Phase 4: Update Documentation
 - [ ] Step 12: Finalize Deployment Plan
@@ -48,12 +48,12 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 
 ## Deployment Info
 
-- Deployment URL: [after completion]
-- Stack name: [after creation]
-- Distribution ID: [after creation]
-- S3 Bucket Name: [after creation]
-- S3 Log Bucket: [after creation]
-- CloudFront Log Bucket: [after creation]
+- Deployment URL: https://d9adrq419rcwu.cloudfront.net
+- Stack name: NextJSLandFrontend-preview-sergeyka
+- Distribution ID: E3KJCC0BV5LNFH
+- S3 Bucket Name: nextjslandfrontend-preview--cftos3s3bucketcae9f2be-1c9wroq6umz1
+- S3 Log Bucket: nextjslandfrontend-previe-cftos3s3loggingbucket64b-f4zpthd22hhh
+- CloudFront Log Bucket: nextjslandfrontend-previe-cftos3cloudfrontloggingb-oesvcpjvotgu
 
 ## Recovery Guide
 
