@@ -5,7 +5,7 @@ app_name: NextLanding
 app_type: Frontend Application
 branch: master
 created: 2026-01-28T16:22:00Z
-last_updated: 2026-01-28T16:35:00Z
+last_updated: 2026-01-28T16:46:00Z
 ---
 
 # Deployment Plan: NextLanding
@@ -29,8 +29,8 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 - [x] Step 9: Validate CDK Synth
 
 ## Phase 3: Deploy and Validate
-- [ ] Step 10: Execute CDK Deployment
-- [ ] Step 11: Validate CloudFormation Stack
+- [x] Step 10: Execute CDK Deployment
+- [x] Step 11: Validate CloudFormation Stack
 
 ## Phase 4: Update Documentation
 - [ ] Step 12: Finalize Deployment Plan
@@ -50,12 +50,13 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 
 ## Deployment Info
 
-- Deployment URL: [after completion]
-- Stack name: [after creation]
-- Distribution ID: [after creation]
-- S3 Bucket: [after creation]
-- CloudFront Log Bucket: [after creation]
-- S3 Log Bucket: [after creation]
+- Deployment URL: https://d1b4enkfrm6roz.cloudfront.net
+- Stack name: NextLandingFrontend-preview-sergeyka
+- Distribution ID: E1AOBXAZW144YZ
+- S3 Bucket: nextlandingfrontend-preview-cftos3s3bucketcae9f2be-tgp4hatmlag0
+- CloudFront Log Bucket: nextlandingfrontend-previ-cftos3cloudfrontloggingb-dwi63ne0hlbu
+- S3 Log Bucket: nextlandingfrontend-previ-cftos3s3loggingbucket64b-yjx23gjyyb2b
+- Deployment timestamp: 2026-01-28T16:45:26Z
 
 ## Recovery Guide
 
