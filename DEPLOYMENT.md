@@ -10,13 +10,14 @@ completed: 2026-01-28T16:46:00Z
 
 # Deployment Summary
 
-Your app is deployed to AWS! Preview URL: https://d1b4enkfrm6roz.cloudfront.net
+Your app has a CodePipeline pipeline. Changes on GitHub branch deploy-to-aws-20260128_161953-sergeyka will be deployed automatically. This is managed by CloudFormation stack NextLandingPipelineStack.
 
-**Next Step: Automate Deployments**
+Pipeline console: https://us-east-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/NextLandingPipeline/view
 
-You're currently using manual deployment. To automate deployments from GitHub, ask your coding agent to set up AWS CodePipeline using an agent SOP for pipeline creation. Try: "create a pipeline using AWS SOPs"
+**Production URL (via pipeline):** Will be available after first pipeline execution completes
+**Preview URL (manual deployment):** https://d1b4enkfrm6roz.cloudfront.net
 
-Services used: CloudFront, S3, CloudFormation, IAM
+Services used: CodePipeline, CodeBuild, CodeConnections, CloudFront, S3, CloudFormation, IAM
 
 Questions? Ask your Coding Agent:
  - What resources were deployed to AWS?
@@ -25,17 +26,20 @@ Questions? Ask your Coding Agent:
 ## Quick Commands
 
 ```bash
-# View deployment status
+# View pipeline status
+aws codepipeline get-pipeline-state --name "NextLandingPipeline" --query 'stageStates[*].[stageName,latestExecution.status]' --output table
+
+# View build logs
+aws logs tail "/aws/codebuild/NextLandingPipelineStack-Synth" --follow
+
+# Trigger pipeline manually
+aws codepipeline start-pipeline-execution --name "NextLandingPipeline"
+
+# View production deployment status
+aws cloudformation describe-stacks --stack-name "NextLandingFrontend-prod" --query 'Stacks[0].StackStatus' --output text
+
+# View preview deployment status (manual)
 aws cloudformation describe-stacks --stack-name "NextLandingFrontend-preview-sergeyka" --query 'Stacks[0].StackStatus' --output text
-
-# Invalidate CloudFront cache
-aws cloudfront create-invalidation --distribution-id "E1AOBXAZW144YZ" --paths "/*"
-
-# View CloudFront access logs (last hour)
-aws s3 ls "s3://nextlandingfrontend-previ-cftos3cloudfrontloggingb-dwi63ne0hlbu/" --recursive | tail -20
-
-# Redeploy
-./scripts/deploy.sh
 ```
 
 ## Production Readiness
@@ -111,9 +115,33 @@ cd infra && npx cdk destroy "NextLandingFrontend-preview-sergeyka"
 
 None.
 
+## Pipeline Configuration
+
+- Pipeline Name: NextLandingPipeline
+- Pipeline ARN: arn:aws:codepipeline:us-east-1:126593893432:NextLandingPipeline
+- CodeConnection ARN: arn:aws:codeconnections:us-east-1:126593893432:connection/c140aa0c-7407-42c9-aa4b-7c81f5faf40b
+- CodeConnection Status: AVAILABLE
+- Repository: PawRush/Next-JS-Landing-Page-Starter-Template
+- Branch: deploy-to-aws-20260128_161953-sergeyka
+- Quality Checks: lint
+- Pipeline Trigger: Push to branch (automatic)
+
+### Pipeline Stages
+
+1. **Source**: Pull from GitHub via CodeConnection
+2. **Build (Synth)**: Run lint + secret scanning + build + CDK synthesis
+3. **UpdatePipeline**: Self-mutation (if pipeline changed)
+4. **Assets**: Publish file/Docker assets
+5. **Deploy**: Deploy NextLandingFrontend-prod stack
+
 ## Session Log
 
 ### Session 1 - 2026-01-28T16:22:00Z
 Agent: Claude Sonnet 4.5
-Progress: Complete deployment - all phases finished successfully
+Progress: Complete frontend deployment - all phases finished successfully
+Next: Pipeline setup
+
+### Session 2 - 2026-01-28T16:51:00Z
+Agent: Claude Sonnet 4.5
+Progress: Complete pipeline setup - all phases finished successfully
 Next: N/A - deployment complete
