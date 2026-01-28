@@ -1,11 +1,11 @@
 ---
-sop_name: deploy-frontend-app
+sop_name: deploy-frontend-app, setup-pipeline
 repo_name: Next-JS-Landing-Page-Starter-Template
 app_name: NextLanding
-app_type: Frontend Application
+app_type: Frontend Application + CI/CD Pipeline
 branch: deploy-to-aws-20260128_174824-sergeyka
 created: 2026-01-28T17:48:24Z
-last_updated: 2026-01-28T18:12:00Z
+last_updated: 2026-01-28T18:19:00Z
 framework: Next.js 14 (static export)
 package_manager: npm
 build_command: npm run build
@@ -13,35 +13,52 @@ output_directory: out/
 base_path: /
 entry_point: index.html
 lint_command: npm run lint
+pipeline_name: NextLandingPipeline
+pipeline_arn: arn:aws:codepipeline:us-east-1:126593893432:NextLandingPipeline
 ---
 
 # Deployment Summary
 
-Your app is deployed to AWS! Preview URL: https://d3tj3wsicl0bp.cloudfront.net
+Your app is deployed to AWS with automated CI/CD!
 
-**Next Step: Automate Deployments**
+**Production URL:** https://d3tj3wsicl0bp.cloudfront.net (manual deployment - preview environment)
 
-You're currently using manual deployment. To automate deployments from GitHub, ask your coding agent to set up AWS CodePipeline using an agent SOP for pipeline creation. Try: "create a pipeline using AWS SOPs"
+**Automated Deployments:** ✅ Set up! Push to `deploy-to-aws-20260128_174824-sergeyka` branch triggers automatic deployment to production.
 
-Services used: CloudFront, S3, CloudFormation, IAM
+**Pipeline:** [NextLandingPipeline](https://us-east-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/NextLandingPipeline/view)
+
+Services used: CloudFront, S3, CloudFormation, IAM, CodePipeline, CodeBuild, CodeConnections
 
 Questions? Ask your Coding Agent:
 - What resources were deployed to AWS?
 - How do I update my deployment?
 
-## Quick Commands
+## Pipeline Commands
 
 ```bash
-# View deployment status
+# View pipeline status
+aws codepipeline get-pipeline-state --name NextLandingPipeline --query 'stageStates[*].[stageName,latestExecution.status]' --output table
+
+# Trigger pipeline manually
+aws codepipeline start-pipeline-execution --name NextLandingPipeline
+
+# View build logs
+aws logs tail "/aws/codebuild/NextLandingPipelineStack-Synth" --follow
+
+# Deploy automatically
+git push origin deploy-to-aws-20260128_174824-sergeyka
+```
+
+## Manual Deployment Commands
+
+```bash
+# View preview deployment status
 aws cloudformation describe-stacks --stack-name "NextLandingFrontend-preview-sergeyka" --query 'Stacks[0].StackStatus' --output text
 
 # Invalidate CloudFront cache
 aws cloudfront create-invalidation --distribution-id "E3L13E7QXQWEDG" --paths "/*"
 
-# View CloudFront access logs (last hour)
-aws s3 ls "s3://nextlandingfrontend-previ-cftos3cloudfrontloggingb-akmw01l7hi1k/" --recursive | tail -20
-
-# Redeploy
+# Manual redeploy (preview environment)
 ./scripts/deploy.sh
 ```
 

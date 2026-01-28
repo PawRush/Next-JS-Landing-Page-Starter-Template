@@ -215,9 +215,11 @@ Now, your theme is ready to be deployed. All generated files are located at `out
 
 ## Deployment
 
-Deployed at: https://d3tj3wsicl0bp.cloudfront.net, using the [deploy-frontend-app] Agent Standard Operation Procedure from the [AWS MCP](https://docs.aws.amazon.com/aws-mcp/latest/userguide/what-is-mcp-server.html).
+Deployed at: https://d3tj3wsicl0bp.cloudfront.net, using the [deploy-frontend-app] and [setup-pipeline] Agent Standard Operation Procedures from the [AWS MCP](https://docs.aws.amazon.com/aws-mcp/latest/userguide/what-is-mcp-server.html).
 
-Deployment command: `./scripts/deploy.sh`
+Pipeline: [NextLandingPipeline](https://us-east-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/NextLandingPipeline/view)
+
+Deploy: `git push origin deploy-to-aws-20260128_174824-sergeyka`
 
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for full details.
 
