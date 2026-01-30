@@ -23,6 +23,28 @@ export class FrontendStack extends cdk.Stack {
       ? cdk.RemovalPolicy.RETAIN
       : cdk.RemovalPolicy.DESTROY;
 
+    // URL rewrite function for Next.js with trailingSlash: true
+    // Rewrites /path to /path/index.html for static multi-page sites
+    const urlRewriteFunction = new cloudfront.Function(
+      this,
+      'UrlRewriteFunction',
+      {
+        runtime: cloudfront.FunctionRuntime.JS_2_0,
+        code: cloudfront.FunctionCode.fromInline(`
+          function handler(event) {
+            const request = event.request;
+            let uri = request.uri;
+            if (!uri.includes('.')) {
+              if (!uri.endsWith('/')) uri += '/';
+              request.uri = uri + 'index.html';
+            }
+            return request;
+          }
+        `),
+        comment: 'Rewrites /path to /path/index.html',
+      },
+    );
+
     // CSP via CloudFront Function - permissive policy for 3rd-party CDNs/APIs
     const cspFunction = new cloudfront.Function(this, 'CspFunction', {
       runtime: cloudfront.FunctionRuntime.JS_2_0,
@@ -78,6 +100,10 @@ export class FrontendStack extends cdk.Stack {
             cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
           functionAssociations: [
             {
+              function: urlRewriteFunction,
+              eventType: cloudfront.FunctionEventType.VIEWER_REQUEST,
+            },
+            {
               function: cspFunction,
               eventType: cloudfront.FunctionEventType.VIEWER_RESPONSE,
             },
@@ -89,46 +115,6 @@ export class FrontendStack extends cdk.Stack {
         minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
       },
     });
-
-    // URL rewrite function for Next.js with trailingSlash: true
-    // Rewrites /path to /path/index.html for static multi-page sites
-    const urlRewriteFunction = new cloudfront.Function(
-      this,
-      'UrlRewriteFunction',
-      {
-        runtime: cloudfront.FunctionRuntime.JS_2_0,
-        code: cloudfront.FunctionCode.fromInline(`
-          function handler(event) {
-            const request = event.request;
-            let uri = request.uri;
-            if (!uri.includes('.')) {
-              if (!uri.endsWith('/')) uri += '/';
-              request.uri = uri + 'index.html';
-            }
-            return request;
-          }
-        `),
-        comment: 'Rewrites /path to /path/index.html',
-      },
-    );
-
-    // Add URL rewrite function to default behavior
-    const cfnDistribution = cloudfrontToS3.cloudFrontWebDistribution.node
-      .findChild('CFDistribution')
-      .node.findChild('Resource') as cdk.CfnResource;
-    cfnDistribution.addPropertyOverride(
-      'DistributionConfig.DefaultCacheBehavior.FunctionAssociations',
-      [
-        {
-          EventType: 'viewer-response',
-          FunctionARN: cspFunction.functionArn,
-        },
-        {
-          EventType: 'viewer-request',
-          FunctionARN: urlRewriteFunction.functionArn,
-        },
-      ],
-    );
 
     const websiteBucket = cloudfrontToS3.s3Bucket!;
     const distribution = cloudfrontToS3.cloudFrontWebDistribution;
