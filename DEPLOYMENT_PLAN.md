@@ -5,7 +5,7 @@ app_name: NextLanding
 app_type: Frontend Application
 branch: deploy-to-aws-20260130_032535-sergeyka
 created: 2026-01-30 02:29:07 UTC
-last_updated: 2026-01-30 02:29:07 UTC
+last_updated: 2026-01-30 02:29:47 UTC
 ---
 
 # Deployment Plan: NextLanding
@@ -15,10 +15,10 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 **IMPORTANT**: Update this plan after EACH step completes. Mark the step `[x]` and update `last_updated` timestamp.
 
 ## Phase 1: Gather Context and Configure
-- [ ] Step 0: Inform User of Execution Flow
-- [ ] Step 1: Create Deployment Plan
-- [ ] Step 2: Create Deploy Branch
-- [ ] Step 3: Detect Build Configuration
+- [x] Step 0: Inform User of Execution Flow
+- [x] Step 1: Create Deployment Plan
+- [x] Step 2: Create Deploy Branch
+- [x] Step 3: Detect Build Configuration
 - [ ] Step 4: Validate Prerequisites
 - [ ] Step 5: Revisit Deployment Plan
 
@@ -38,11 +38,13 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 
 ## Deployment Info
 
-- Framework: Next.js
-- Package Manager: TBD
-- Build Command: TBD
-- Output Directory: TBD
-- Base Path: TBD
+- Framework: Next.js (Static Export with trailingSlash: true)
+- Package Manager: npm
+- Build Command: npm run build
+- Output Directory: out/
+- Base Path: / (root)
+- Entry Point: index.html
+- Lint Command: npm run lint
 - Deployment URL: [after completion]
 - Stack Name: [after creation]
 - Distribution ID: [after creation]
