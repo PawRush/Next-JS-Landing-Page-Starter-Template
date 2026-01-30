@@ -45,8 +45,12 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 - Branch: deploy-to-aws-20260130_032535-sergeyka
 - Package Manager: npm
 - Quality Checks: lint (passing)
-- Pipeline URL: [after deployment]
-- Stack Name: [after deployment]
+- Pipeline Name: NextLandingPipeline
+- Pipeline ARN: arn:aws:codepipeline:us-east-1:126593893432:NextLandingPipeline
+- Pipeline URL: https://us-east-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/NextLandingPipeline/view
+- Stack Name: NextLandingPipelineStack
+- Production URL: https://d131pd2aw8gz93.cloudfront.net
+- Production Stack: NextLandingFrontend-prod
 
 ## Recovery Guide
 

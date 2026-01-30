@@ -316,6 +316,18 @@ See [LICENSE](LICENSE) for more information.
   </tr>
 </table>
 
+## Pipeline
+
+**Production:** https://d131pd2aw8gz93.cloudfront.net
+
+**Pipeline:** [NextLandingPipeline](https://us-east-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/NextLandingPipeline/view)
+
+**Deploy:** `git push origin deploy-to-aws-20260130_032535-sergeyka`
+
+Every push to the `deploy-to-aws-20260130_032535-sergeyka` branch automatically triggers deployment to production via AWS CodePipeline.
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for full details. Created with the [setup-pipeline] Agent Standard Operation Procedure from the [AWS MCP](https://docs.aws.amazon.com/aws-mcp/latest/userguide/what-is-mcp-server.html).
+
 ---
 
 Made with ♥ by [CreativeDesignsGuru](https://creativedesignsguru.com) [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40Ixartz)](https://twitter.com/ixartz)
