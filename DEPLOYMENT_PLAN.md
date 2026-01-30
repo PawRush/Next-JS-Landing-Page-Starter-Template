@@ -29,8 +29,8 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 - [x] Step 9: Validate CDK Synth
 
 ## Phase 3: Deploy and Validate
-- [ ] Step 10: Execute CDK Deployment
-- [ ] Step 11: Validate CloudFormation Stack
+- [x] Step 10: Execute CDK Deployment
+- [x] Step 11: Validate CloudFormation Stack
 
 ## Phase 4: Update Documentation
 - [ ] Step 12: Finalize Deployment Plan
@@ -45,11 +45,14 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 - Base Path: / (root)
 - Entry Point: index.html
 - Lint Command: npm run lint
-- Deployment URL: [after completion]
-- Stack Name: [after creation]
-- Distribution ID: [after creation]
-- S3 Bucket Name: [after creation]
-- CloudFront Log Bucket: [after creation]
+- Deployment URL: https://djitzxprvua2d.cloudfront.net
+- Stack Name: NextLandingFrontend-preview-sergeyka
+- Distribution ID: E2ZG5FNBY93SIT
+- Distribution Domain: djitzxprvua2d.cloudfront.net
+- S3 Bucket Name: nextlandingfrontend-preview-cftos3s3bucketcae9f2be-gvia7wgdtqbj
+- S3 Log Bucket: nextlandingfrontend-previ-cftos3s3loggingbucket64b-saee8gtzmbz7
+- CloudFront Log Bucket: nextlandingfrontend-previ-cftos3cloudfrontloggingb-dyd9k7rh4840
+- Deployment Timestamp: 2026-01-30 03:52:01 AM
 
 ## Recovery Guide
 
