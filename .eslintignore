@@ -1,2 +1,8 @@
 node_modules
 out
+.next
+infra/*.js
+infra/*.d.ts
+infra/**/*.js
+infra/**/*.d.ts
+infra/cdk.out
