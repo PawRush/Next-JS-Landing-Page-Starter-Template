@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "aws-tasks-mcp-server-brazil": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/local/home/hulyas/workspace/TasksMCP/src/AWSTasksMCP",
+        "aws.aws-tasks-mcp-server"
+      ],
+      "env": {
+        "AWS_REGION": "us-east-1",
+        "AGENT_SCRIPTS_DIR": "/local/home/hulyas/workspace/TasksMCP/src/AWSDeployAgentScripts/scripts",
+        "STAGE": "prod"
+      },
+      "disabled": false,
+      "disabledTools": []
+    }
+  }
+}
