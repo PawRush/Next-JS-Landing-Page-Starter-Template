@@ -2,29 +2,29 @@
 sop_name: setup-pipeline
 sop_version: 1.0
 repo_name: PawRush/Next-JS-Landing-Page-Starter-Template
-app_name: NextJsBoilerplate
+app_name: NextLanding
 app_type: CI/CD Pipeline
 branch: deploy-to-aws-20260501_121659-kamielw
 created: 2026-05-01T12:30:00Z
-last_updated: 2026-05-01T12:30:00Z
+last_updated: 2026-05-01T12:50:00Z
 ---
 
-# Deployment Plan: NextJsBoilerplate Pipeline
+# Deployment Plan: NextLanding Pipeline
 
 Coding Agents should follow this Deployment Plan, and validate previous progress if picking up the Deployment in a new coding session.
 
 **IMPORTANT**: Update this plan after EACH step completes. Mark the step `[x]` and update `last_updated` timestamp.
 
 ## Phase 1: Gather Context and Configure
-- [ ] Step 0: Inform User of Execution Flow
-- [ ] Step 1: Create Deployment Plan
-- [ ] Step 2: Detect Existing Infrastructure
-  - [ ] 2.1: Detect stacks, frontend, and backend
-  - [ ] 2.2: Detect app name and git repository
-  - [ ] 2.3: Determine quality checks
-  - [ ] 2.4: User confirmation
-  - [ ] 2.5: Create CodeConnection (SKIP - using existing)
-  - [ ] 2.6: Ensure Production Secrets (if secrets required)
+- [x] Step 0: Inform User of Execution Flow
+- [x] Step 1: Create Deployment Plan
+- [x] Step 2: Detect Existing Infrastructure
+  - [x] 2.1: Detect stacks, frontend, and backend
+  - [x] 2.2: Detect app name and git repository
+  - [x] 2.3: Determine quality checks
+  - [x] 2.4: User confirmation
+  - [x] 2.5: Create CodeConnection (SKIP - using existing, status: AVAILABLE)
+  - [x] 2.6: Ensure Production Secrets (not required - no Lambda functions)
 
 ## Phase 2: Build and Deploy Pipeline
 - [ ] Step 3: Create CDK Pipeline Stack
@@ -44,7 +44,7 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 
 - CodeConnection ARN: arn:aws:codeconnections:eu-central-1:189681391221:connection/ee7a600a-99ab-4b3a-bf6c-b42cc9f5a026
 - Pipeline URL: [after deployment]
-- Stack name: NextJsBoilerplatePipelineStack
+- Stack name: NextLandingPipelineStack
 - Region: eu-central-1
 
 ## Recovery Guide
@@ -55,8 +55,8 @@ cd infra
 npm run destroy:pipeline
 
 # Manual deletions if needed
-aws codepipeline delete-pipeline --name "NextJsBoilerplatePipeline"
-aws cloudformation delete-stack --stack-name "NextJsBoilerplatePipelineStack"
+aws codepipeline delete-pipeline --name "NextLandingPipeline"
+aws cloudformation delete-stack --stack-name "NextLandingPipelineStack"
 ```
 
 ## Issues Encountered
@@ -67,5 +67,5 @@ None.
 
 ### Session 1 - 2026-05-01T12:30:00Z
 Agent: Claude Sonnet 4.5
-Progress: Created deployment plan
-Next: Detect existing infrastructure
+Progress: Phase 1 complete - detected infrastructure, confirmed configuration, verified CodeConnection
+Next: Create CDK pipeline stack
