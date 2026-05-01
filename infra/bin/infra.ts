@@ -3,6 +3,7 @@ import * as cdk from 'aws-cdk-lib';
 import { execSync } from 'child_process';
 
 import { FrontendStack } from '../lib/stacks/frontend-stack';
+import { PipelineStack } from '../lib/stacks/pipeline-stack';
 
 const app = new cdk.App();
 
@@ -15,21 +16,47 @@ const getDefaultEnvironment = (): string => {
   }
 };
 
-const environment =
-  app.node.tryGetContext('environment') || getDefaultEnvironment();
 const account = process.env.CDK_DEFAULT_ACCOUNT;
 const region = process.env.CDK_DEFAULT_REGION || 'us-east-1';
-const buildOutputPath = app.node.tryGetContext('buildPath') || '../out';
 
-// eslint-disable-next-line no-new
-new FrontendStack(app, `NextLandingFrontend-${environment}`, {
-  env: { account, region },
-  environment,
-  buildOutputPath,
-  description: `Static website hosting - ${environment}`,
-  terminationProtection: environment === 'prod',
-});
+const codeConnectionArn = app.node.tryGetContext('codeConnectionArn');
+const repositoryName =
+  app.node.tryGetContext('repositoryName') ||
+  'PawRush/Next-JS-Landing-Page-Starter-Template';
+const branchName =
+  app.node.tryGetContext('branchName') ||
+  'deploy-to-aws-20260501_121659-kamielw';
+
+if (!codeConnectionArn) {
+  // Local/preview deployment
+  const environment =
+    app.node.tryGetContext('environment') || getDefaultEnvironment();
+  const buildOutputPath = app.node.tryGetContext('buildPath') || '../out';
+
+  // eslint-disable-next-line no-new
+  new FrontendStack(app, `NextLandingFrontend-${environment}`, {
+    env: { account, region },
+    environment,
+    buildOutputPath,
+    description: `Static website hosting - ${environment}`,
+    terminationProtection: environment === 'prod',
+  });
+
+  cdk.Tags.of(app).add('Environment', environment);
+}
+
+if (codeConnectionArn) {
+  // Pipeline deployment
+  // eslint-disable-next-line no-new
+  new PipelineStack(app, 'NextLandingPipelineStack', {
+    env: { account, region },
+    description: 'CI/CD Pipeline for NextLanding',
+    codeConnectionArn,
+    repositoryName,
+    branchName,
+    terminationProtection: true,
+  });
+}
 
 cdk.Tags.of(app).add('Project', 'NextLanding');
 cdk.Tags.of(app).add('ManagedBy', 'CDK');
-cdk.Tags.of(app).add('Environment', environment);
