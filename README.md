@@ -87,6 +87,14 @@ Clone this project and use it to create your own [Next.js](https://nextjs.org) p
 
 Check out our [live demo](https://creativedesignsguru.com/demo/nextjs-landing-page/).
 
+## Deployment
+
+Deployed at: https://d27virod7qmujy.cloudfront.net, using the [deploy-frontend-app] Agent Standard Operation Procedure from the [AWS MCP](https://docs.aws.amazon.com/aws-mcp/latest/userguide/what-is-mcp-server.html).
+
+Deployment command: `./scripts/deploy.sh`
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for full details.
+
 ### Features
 
 Developer experience first:
