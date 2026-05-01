@@ -89,9 +89,13 @@ Check out our [live demo](https://creativedesignsguru.com/demo/nextjs-landing-pa
 
 ## Deployment
 
-Deployed at: https://d27virod7qmujy.cloudfront.net, using the [deploy-frontend-app] Agent Standard Operation Procedure from the [AWS MCP](https://docs.aws.amazon.com/aws-mcp/latest/userguide/what-is-mcp-server.html).
+**Preview URL**: https://d27virod7qmujy.cloudfront.net
 
-Deployment command: `./scripts/deploy.sh`
+**Pipeline**: https://eu-central-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/NextLandingPipeline/view
+
+Deploy: `git push origin deploy-to-aws-20260501_121659-kamielw`
+
+Created with the [setup-pipeline] Agent Standard Operation Procedure from the [AWS MCP](https://docs.aws.amazon.com/aws-mcp/latest/userguide/what-is-mcp-server.html).
 
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for full details.
 

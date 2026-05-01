@@ -8,32 +8,38 @@ deployment_date: 2026-05-01T12:42:04Z
 
 # Deployment Summary
 
-Your app is deployed to AWS! Preview URL: https://d27virod7qmujy.cloudfront.net
+Your app is deployed to AWS with automated CI/CD! 
 
-**Next Step: Automate Deployments**
+**Preview URL**: https://d27virod7qmujy.cloudfront.net
 
-You're currently using manual deployment. To automate deployments from GitHub, ask your coding agent to set up AWS CodePipeline using an agent SOP for pipeline creation. Try: "create a pipeline using AWS SOPs"
+**Pipeline**: Changes pushed to `deploy-to-aws-20260501_121659-kamielw` branch are automatically deployed.
 
-Services used: CloudFront, S3, CloudFormation, IAM
+Pipeline console: https://eu-central-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/NextLandingPipeline/view
+
+Services used: CodePipeline, CodeBuild, CodeConnections, CloudFront, S3, CloudFormation, IAM
 
 Questions? Ask your Coding Agent:
- - What resources were deployed to AWS?
- - How do I update my deployment?
+ - How can I change the pipeline branch?
+ - How do I add a production deployment?
+ - What quality checks are running in the pipeline?
 
 ## Quick Commands
 
 ```bash
-# View deployment status
-aws cloudformation describe-stacks --stack-name "NextLandingFrontend-preview-kamielw" --region eu-central-1 --query 'Stacks[0].StackStatus' --output text
+# View pipeline status
+AWS_PAGER="" aws codepipeline get-pipeline-state --name "NextLandingPipeline" --region eu-central-1 --query 'stageStates[*].[stageName,latestExecution.status]' --output table
+
+# View build logs
+AWS_PAGER="" aws logs tail "/aws/codebuild/PipelineBuildSynthCdkBuildP-7955bAOtmTAn" --follow --region eu-central-1
+
+# Trigger pipeline manually
+AWS_PAGER="" aws codepipeline start-pipeline-execution --name "NextLandingPipeline" --region eu-central-1
+
+# View preview deployment status
+AWS_PAGER="" aws cloudformation describe-stacks --stack-name "NextLandingFrontend-preview-kamielw" --region eu-central-1 --query 'Stacks[0].StackStatus' --output text
 
 # Invalidate CloudFront cache
 aws cloudfront create-invalidation --distribution-id "E25MZBVI2YBF8K" --paths "/*"
-
-# View CloudFront access logs (last hour)
-aws s3 ls "s3://nextlandingfrontend-previ-cftos3cloudfrontloggingb-ulu2le4sbj31/" --recursive | tail -20
-
-# Redeploy
-./scripts/deploy.sh
 ```
 
 ## Production Readiness
@@ -51,14 +57,26 @@ For production deployments, consider:
 
 ## Deployment Info
 
-- **Deployment URL**: https://d27virod7qmujy.cloudfront.net
+### Pipeline
+- **Pipeline URL**: https://eu-central-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/NextLandingPipeline/view
+- **Pipeline ARN**: arn:aws:codepipeline:eu-central-1:189681391221:NextLandingPipeline
+- **Pipeline Stack**: NextLandingPipelineStack
+- **CodeConnection ARN**: arn:aws:codeconnections:eu-central-1:189681391221:connection/ee7a600a-99ab-4b3a-bf6c-b42cc9f5a026
+- **Branch**: deploy-to-aws-20260501_121659-kamielw
+- **Quality Checks**: lint, check-types, secretlint
+
+### Preview Deployment (Manual)
+- **Preview URL**: https://d27virod7qmujy.cloudfront.net
 - **Stack name**: NextLandingFrontend-preview-kamielw
 - **Distribution ID**: E25MZBVI2YBF8K
 - **S3 Bucket**: nextlandingfrontend-preview-cftos3s3bucketcae9f2be-tpru7o8vpxuk
 - **CloudFront Log Bucket**: nextlandingfrontend-previ-cftos3cloudfrontloggingb-ulu2le4sbj31
 - **S3 Log Bucket**: nextlandingfrontend-previ-cftos3s3loggingbucket64b-ybbsd8h1ckjk
+
+### Common
 - **Region**: eu-central-1
-- **Deployment timestamp**: 2026-05-01T12:42:04Z
+- **Initial deployment**: 2026-05-01T12:42:04Z
+- **Pipeline setup**: 2026-05-01T12:53:00Z
 
 ## Phase 1: Gather Context and Configure
 - [x] Step 0: Inform User of Execution Flow
@@ -99,11 +117,19 @@ For production deployments, consider:
 ## Recovery Guide
 
 ```bash
-# Rollback
+# Destroy pipeline
+cd infra
+npm run destroy:pipeline
+
+# Or manual deletion
+AWS_PAGER="" aws codepipeline delete-pipeline --name "NextLandingPipeline" --region eu-central-1
+AWS_PAGER="" aws cloudformation delete-stack --stack-name "NextLandingPipelineStack" --region eu-central-1
+
+# Destroy preview deployment
 cd infra
 cdk destroy "NextLandingFrontend-preview-kamielw" --region eu-central-1
 
-# Redeploy
+# Manual redeploy (preview)
 ./scripts/deploy.sh
 ```
 
@@ -118,4 +144,15 @@ cdk destroy "NextLandingFrontend-preview-kamielw" --region eu-central-1
 Agent: Claude Sonnet 4.5
 Progress: Complete deployment to AWS CloudFront + S3
 Status: ✅ Successfully deployed
-Next: See DEPLOYMENT.md for usage instructions
+Next: Set up CI/CD pipeline
+
+### Session 2 - 2026-05-01T12:30:00Z
+Agent: Claude Sonnet 4.5
+Progress: CI/CD Pipeline setup complete
+Summary:
+- Created NextLandingPipelineStack
+- Pipeline automatically triggers on push to deploy-to-aws-20260501_121659-kamielw
+- Quality checks: lint, check-types, secretlint
+- Deploys to NextLandingFrontend-prod stack
+Status: ✅ Pipeline deployed and running
+Next: Monitor pipeline at https://eu-central-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/NextLandingPipeline/view
