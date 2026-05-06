@@ -5,7 +5,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withBundleAnalyzer({
   eslint: {
-    dirs: ['.'],
+    dirs: ['src', 'pages'],
+    ignoreDuringBuilds: false,
   },
   poweredByHeader: false,
   trailingSlash: true,
