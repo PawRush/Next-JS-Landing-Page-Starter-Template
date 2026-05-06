@@ -66,6 +66,14 @@
           { "argsIgnorePattern": "^_" }
         ]
       }
+    },
+    // Configuration for CDK infrastructure files
+    {
+      "files": ["infra/**/*.ts"],
+      "rules": {
+        "no-new": "off",
+        "import/no-extraneous-dependencies": "off"
+      }
     }
   ]
 }
