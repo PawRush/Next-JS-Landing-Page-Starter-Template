@@ -29,8 +29,8 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 - [x] Step 9: Validate CDK Synth
 
 ## Phase 3: Deploy and Validate
-- [ ] Step 10: Execute CDK Deployment
-- [ ] Step 11: Validate CloudFormation Stack
+- [x] Step 10: Execute CDK Deployment
+- [x] Step 11: Validate CloudFormation Stack
 
 ## Phase 4: Update Documentation
 - [ ] Step 12: Finalize Deployment Plan
@@ -44,10 +44,13 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 - Output Directory: out/
 - Base Path: /
 - Entry Point: index.html
-- Deployment URL: [after completion]
-- Stack Name: [after creation]
-- Distribution ID: [after creation]
-- S3 Bucket Name: [after creation]
+- Deployment URL: https://d34btgvldq0aao.cloudfront.net
+- Stack Name: NextJSLandFrontend-preview-kamielw
+- Distribution ID: E47LVK0027AIT
+- S3 Bucket Name: nextjslandfrontend-preview--cftos3s3bucketcae9f2be-evzgpt3rupiy
+- CloudFront Log Bucket: nextjslandfrontend-previe-cftos3cloudfrontloggingb-sfatbatsf3xt
+- S3 Log Bucket: nextjslandfrontend-previe-cftos3s3loggingbucket64b-z1nmlqmnkxxv
+- Deployment Timestamp: 2026-05-06 15:36:33 UTC
 
 ## Recovery Guide
 
