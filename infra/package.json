@@ -8,7 +8,9 @@
     "cdk": "cdk",
     "deploy": "npm run deploy:preview",
     "deploy:preview": "cdk deploy --all --require-approval never --progress events",
+    "deploy:pipeline": "cdk deploy NextJSLandPipelineStack --context codeConnectionArn=arn:aws:codeconnections:eu-central-1:189681391221:connection/50ef56a0-18b1-4ac2-955a-52145e6f7bdd --context repositoryName=PawRush/Next-JS-Landing-Page-Starter-Template --context branchName=deploy-to-aws-20260506_150212-kamielw --require-approval never --progress events",
     "destroy": "cdk destroy --all",
+    "destroy:pipeline": "cdk destroy NextJSLandPipelineStack --context codeConnectionArn=arn:aws:codeconnections:eu-central-1:189681391221:connection/50ef56a0-18b1-4ac2-955a-52145e6f7bdd",
     "synth": "cdk synth",
     "diff": "cdk diff"
   },
