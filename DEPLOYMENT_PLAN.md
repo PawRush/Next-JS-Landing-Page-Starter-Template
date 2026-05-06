@@ -23,9 +23,9 @@
 - [ ] Phase 1 Checkpoint
 
 ### Phase 2: Build and Deploy Pipeline
-- [ ] Step 3: Create CDK Pipeline Stack
-- [ ] Step 4: CDK Bootstrap
-- [ ] Step 5.1: Push to remote
+- [x] Step 3: Create CDK Pipeline Stack ✅
+- [x] Step 4: CDK Bootstrap ✅
+- [ ] Step 5.1: Push to remote ⏳
 - [ ] Step 5.2: Authorize CodeConnection
 - [ ] Step 5.3: Deploy pipeline stack
 - [ ] Step 5.4: Trigger and verify pipeline
