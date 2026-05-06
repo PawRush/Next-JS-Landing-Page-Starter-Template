@@ -1,2 +1,10 @@
 node_modules
 out
+infra/node_modules
+infra/bin/*.js
+infra/bin/*.d.ts
+infra/lib/**/*.js
+infra/lib/**/*.d.ts
+infra/test/*.js
+infra/test/*.d.ts
+infra/cdk.out
